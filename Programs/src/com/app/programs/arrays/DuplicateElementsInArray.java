@@ -19,9 +19,11 @@ public class DuplicateElementsInArray {
 		int[] numbers = new int[] {1,3,5,4,1,2,3,5,4,7,6,7};
 		//printDupNumbers(numbers);
 		
+		System.out.println(containsUnique(Arrays.asList(1,3,5,4,1,2,3,5,4,7,6,7)));
+		System.out.println(containsUnique(Arrays.asList("one","two","three")));
 		
 		//java 8
-		printDupNumbersJava8(new Integer[] {1,3,5,4,1,2,3,5,4,7,6,7});
+		//printDupNumbersJava8(new Integer[] {1,3,5,4,1,2,3,5,4,7,6,7});
 		printDupNumbersJava8(withDuplicates);
 	}
 
@@ -37,6 +39,7 @@ public class DuplicateElementsInArray {
 		Set<String> set = new HashSet();
 		//Set<String> duplicates = list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toSet());
 		Set<String> duplicates = list.stream().filter(i -> !(set.add(i))).collect(Collectors.toSet());
+		//Set<String> duplicates = list.stream().filter(new HashSet<>()::add).collect(Collectors.toSet());
 		System.out.println(duplicates);
 		
 	}
@@ -89,5 +92,18 @@ public class DuplicateElementsInArray {
 			}
 		}
 		System.out.println("Duplicate number in the given sequence is :" + duplicate);
+	}
+	
+	public static <T> boolean containsUnique(List<T> list){
+	    Set<T> set = new HashSet<>();
+
+	   /* for (T t: list){
+	        if (!set.add(t))
+	            return false;
+	    }
+	    return true;*/
+	    
+	    //return list.stream().allMatch(i -> set.add(i));
+	    return list.stream().allMatch(new HashSet<>()::add);
 	}
 }
