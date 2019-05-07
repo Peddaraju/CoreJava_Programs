@@ -11,7 +11,7 @@ public class ProducerConsumerProblem {
 		MyBlockingQueue2<String> queue = new MyBlockingQueue2(10);
 		//producer
 		final Runnable producer = () -> {
-				queue.put("prema");
+				System.out.println("Produced Prema:" +queue.put("prema"));
 		};
 		
 		new Thread(producer).start();
@@ -21,8 +21,12 @@ public class ProducerConsumerProblem {
 		
 		final Runnable consumer = () -> {
 			String str = null;
-			str = queue.take();
-			System.out.println(str);
+			try {
+				str = queue.take();
+				System.out.println("Consumed:"+str);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		};
 		
 		new Thread(consumer).start();

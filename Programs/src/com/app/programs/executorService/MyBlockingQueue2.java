@@ -21,7 +21,7 @@ public class MyBlockingQueue2<E> {
 		queue = new LinkedList<>();
 	}
 
-	public synchronized void put(E e) {
+	public synchronized boolean put(E e) {
 		if (queue.size() == max) {
 			try {
 				notFull.wait();
@@ -31,6 +31,7 @@ public class MyBlockingQueue2<E> {
 		}
 		queue.add(e);
 		notEmpty.notifyAll();
+		return true;
 	}
 
 	public synchronized E take() {
